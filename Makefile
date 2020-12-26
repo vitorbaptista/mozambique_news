@@ -1,7 +1,7 @@
 .PHONY: data/raw/jornalnoticias_co_mz.jsonlines
-START_DATE?=2000-01-01
+START_DATE?=$(shell date -d 'last Sunday - 5 days' --iso-8601)
 
-all: data/jornalnoticias_co_mz.csv
+data: data/jornalnoticias_co_mz.csv
 
 data/jornalnoticias_co_mz.csv: data/raw/jornalnoticias_co_mz.jsonlines
 	jq -r '[.[]]' data/raw/jornalnoticias_co_mz.jsonlines > $@
