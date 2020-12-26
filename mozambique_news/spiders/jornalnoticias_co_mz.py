@@ -15,7 +15,7 @@ class JornalnoticiasCoMzSpider(scrapy.Spider):
 
     def parse(self, response):
         for news_section in response.css('[itemtype="https://schema.org/BlogPosting"]'):
-            news_data = self.parse_news(news_section)
+            news_data = self.extract_news(news_section)
             yield news_data
 
         try:
@@ -31,7 +31,7 @@ class JornalnoticiasCoMzSpider(scrapy.Spider):
         if next_page is not None:
             yield response.follow(next_page, callback=self.parse)
 
-    def parse_news(self, selector):
+    def extract_news(self, selector):
         extractors = {
             "published_at": '[itemprop="datePublished"]::attr(datetime)',
             "title": '[itemprop="name"] a::text',
