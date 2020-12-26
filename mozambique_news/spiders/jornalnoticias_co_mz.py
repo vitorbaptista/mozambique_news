@@ -37,7 +37,6 @@ class JornalnoticiasCoMzSpider(scrapy.Spider):
             "title": '[itemprop="name"] a::text',
             "url": '[itemprop="name"] a::attr(href)',
             "category": '[itemprop="genre"]::text',
-            "views": '[itemprop="interactionCount"]::attr(content)',
             "body": "span::text",
         }
 
@@ -46,7 +45,6 @@ class JornalnoticiasCoMzSpider(scrapy.Spider):
             for (key, extractor) in extractors.items()
         }
         data["url"] = f"https://www.jornalnoticias.co.mz{data['url']}"
-        data["views"] = data["views"].split(":")[-1]
 
         if not data["body"]:
             data["body"] = "\n".join(
